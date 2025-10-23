@@ -79,7 +79,7 @@ export function PriceCard({ params }: PriceCardProps) {
   const isIncreased = priceResult.percentageChange > 0;
 
   return (
-    <Card className="sticky top-24 border-primary/20" data-testid="card-price">
+    <Card className="sticky top-4 border-primary/20 self-start" data-testid="card-price">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <CardTitle className="text-lg">Preço Estimado</CardTitle>
