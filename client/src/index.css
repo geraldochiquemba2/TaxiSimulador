@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -241,6 +242,15 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    /* Previne zoom em inputs no iOS */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Melhora touch em mobile */
+  @media (max-width: 768px) {
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
   }
 }
 

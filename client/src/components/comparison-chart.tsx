@@ -126,13 +126,13 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
 
   return (
     <Card data-testid="card-chart">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-4 sm:pb-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2">
             <LineChart className="h-5 w-5 text-primary" />
             <div>
-              <CardTitle className="text-lg">Comparação de Cenários</CardTitle>
-              <CardDescription className="mt-1">
+              <CardTitle className="text-lg sm:text-xl">Comparação de Cenários</CardTitle>
+              <CardDescription className="mt-1 text-xs sm:text-sm">
                 Veja como diferentes fatores impactam o preço
               </CardDescription>
             </div>
@@ -143,7 +143,7 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-2 sm:px-6">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={chartData}

@@ -8,10 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { 
-  Car, 
-  CloudRain, 
-  Zap, 
+import {
+  Car,
+  CloudRain,
+  Zap,
   Navigation,
   RotateCcw,
   Sun,
@@ -145,8 +145,8 @@ export default function Simulator() {
               </div>
               <div className="flex items-center gap-2">
                 <PriceCard params={params} compact={true} />
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="sm"
                   onClick={handleReset}
                   data-testid="button-reset"
@@ -166,7 +166,7 @@ export default function Simulator() {
                 <div>
                   <h3 className="font-semibold text-sm mb-1">Como funciona?</h3>
                   <p className="text-sm text-muted-foreground">
-                    Aplicativos de transporte usam <strong>preços dinâmicos</strong> que mudam conforme a demanda. 
+                    Aplicativos de transporte usam <strong>preços dinâmicos</strong> que mudam conforme a demanda.
                     Teste diferentes cenários abaixo e veja como cada fator afeta o valor da corrida.
                   </p>
                 </div>
@@ -225,8 +225,8 @@ export default function Simulator() {
                         </Label>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button 
-                              variant="ghost" 
+                            <Button
+                              variant="ghost"
                               size="icon"
                               aria-label="Informação sobre distância"
                               data-testid="tooltip-distance"
@@ -263,8 +263,8 @@ export default function Simulator() {
                       </Label>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button 
-                            variant="ghost" 
+                          <Button
+                            variant="ghost"
                             size="icon"
                             aria-label="Informação sobre categoria de veículo"
                             data-testid="tooltip-vehicle-type"
@@ -279,7 +279,7 @@ export default function Simulator() {
                     </div>
                     <Select
                       value={params.vehicleType}
-                      onValueChange={(value: SimulationParams["vehicleType"]) => 
+                      onValueChange={(value: SimulationParams["vehicleType"]) =>
                         updateParam("vehicleType", value)
                       }
                     >
@@ -305,8 +305,8 @@ export default function Simulator() {
                         </Label>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button 
-                              variant="ghost" 
+                            <Button
+                              variant="ghost"
                               size="icon"
                               aria-label="Informação sobre horário"
                               data-testid="tooltip-hour"
@@ -356,8 +356,8 @@ export default function Simulator() {
                         </Label>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button 
-                              variant="ghost" 
+                            <Button
+                              variant="ghost"
                               size="icon"
                               aria-label="Informação sobre chuva"
                               data-testid="tooltip-rain"
@@ -415,8 +415,8 @@ export default function Simulator() {
                         </Label>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button 
-                              variant="ghost" 
+                            <Button
+                              variant="ghost"
                               size="icon"
                               aria-label="Informação sobre trânsito"
                               data-testid="tooltip-traffic"
@@ -454,8 +454,8 @@ export default function Simulator() {
                         </Label>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button 
-                              variant="ghost" 
+                            <Button
+                              variant="ghost"
                               size="icon"
                               aria-label="Informação sobre feriado"
                               data-testid="tooltip-holiday"
@@ -485,8 +485,8 @@ export default function Simulator() {
                         </Label>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button 
-                              variant="ghost" 
+                            <Button
+                              variant="ghost"
                               size="icon"
                               aria-label="Informação sobre eventos especiais"
                               data-testid="tooltip-special-event"
@@ -517,8 +517,8 @@ export default function Simulator() {
                       </Label>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button 
-                            variant="ghost" 
+                          <Button
+                            variant="ghost"
                             size="icon"
                             aria-label="Informação sobre zonas de demanda"
                             data-testid="tooltip-surge-zone"
@@ -533,7 +533,7 @@ export default function Simulator() {
                     </div>
                     <Select
                       value={params.surgeZone}
-                      onValueChange={(value: SimulationParams["surgeZone"]) => 
+                      onValueChange={(value: SimulationParams["surgeZone"]) =>
                         updateParam("surgeZone", value)
                       }
                     >

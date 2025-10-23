@@ -96,7 +96,7 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
 
   if (compact) {
     const activeFactors = priceResult.breakdown.filter((item: PriceBreakdownItem) => item.value !== 0 && item.label !== "Tarifa Base");
-    
+
     return (
       <div className="flex flex-col gap-3 bg-primary/10 px-4 py-3 rounded-lg border border-primary/20 flex-1" data-testid="card-price">
         <div className="flex items-center justify-between gap-4">
@@ -137,7 +137,7 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
             )}
           </div>
         </div>
-        
+
         {(activeFactors.length > 0 || priceResult.surgeMultiplier > 1) && (
           <div className="flex items-center gap-2 pt-2 border-t border-primary/20">
             <span className="text-xs text-muted-foreground shrink-0">Fatores:</span>
@@ -171,7 +171,7 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
 
   return (
     <Card className="sticky top-24 z-50 border-primary/20 self-start" data-testid="card-price">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-4 sm:pb-6">
         <div className="flex items-start justify-between">
           <CardTitle className="text-lg">Preço Estimado</CardTitle>
           <div className="bg-primary/10 text-primary p-2 rounded-lg">
@@ -179,17 +179,17 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 p-6 sm:p-8">
         <div className="space-y-2">
           <div className="flex items-baseline gap-2">
             <span 
-              className="text-5xl font-bold tracking-tight" 
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary break-words" 
               data-testid="text-total-price"
             >
               {formatPrice(priceResult.totalPrice)}
             </span>
           </div>
-          
+
           {priceResult.percentageChange !== 0 && (
             <div className="flex items-center gap-2">
               {isIncreased ? (
