@@ -98,22 +98,51 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
     const activeFactors = priceResult.breakdown.filter((item: PriceBreakdownItem) => item.value !== 0 && item.label !== "Tarifa Base");
     
     return (
-      <div className="flex items-center gap-4 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20" data-testid="card-price">
-        <div className="flex items-center gap-3">
-          <DollarSign className="h-5 w-5 text-primary" />
-          <div className="flex flex-col">
-            <span className="text-xs text-muted-foreground">Preço Estimado</span>
-            <span className="text-2xl font-bold tracking-tight" data-testid="text-total-price">
-              {formatPrice(priceResult.totalPrice)}
-            </span>
+      <div className="flex flex-col gap-3 bg-primary/10 px-4 py-3 rounded-lg border border-primary/20 flex-1" data-testid="card-price">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <DollarSign className="h-5 w-5 text-primary" />
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground">Preço Total</span>
+              <span className="text-2xl font-bold tracking-tight" data-testid="text-total-price">
+                {formatPrice(priceResult.totalPrice)}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-end gap-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-muted-foreground">Tarifa Base:</span>
+              <span className="text-sm font-semibold" data-testid="text-base-fare-compact">
+                {formatPrice(priceResult.baseFare)}
+              </span>
+            </div>
+            {priceResult.percentageChange !== 0 && (
+              <div className="flex items-center gap-1">
+                {isIncreased ? (
+                  <TrendingUp className="h-3 w-3 text-destructive" />
+                ) : (
+                  <TrendingDown className="h-3 w-3 text-green-600" />
+                )}
+                <span 
+                  className={`text-xs font-medium ${
+                    isIncreased ? "text-destructive" : "text-green-600"
+                  }`}
+                  data-testid="text-percentage-change-compact"
+                >
+                  {isIncreased ? "+" : ""}
+                  {priceResult.percentageChange.toFixed(1)}%
+                </span>
+              </div>
+            )}
           </div>
         </div>
         
-        {activeFactors.length > 0 && (
-          <div className="flex items-center gap-2 border-l border-primary/20 pl-4">
-            <span className="text-xs text-muted-foreground">Fatores ativos:</span>
+        {(activeFactors.length > 0 || priceResult.surgeMultiplier > 1) && (
+          <div className="flex items-center gap-2 pt-2 border-t border-primary/20">
+            <span className="text-xs text-muted-foreground shrink-0">Fatores:</span>
             <div className="flex flex-wrap gap-1">
-              {activeFactors.slice(0, 3).map((factor: PriceBreakdownItem, idx: number) => (
+              {activeFactors.map((factor: PriceBreakdownItem, idx: number) => (
                 <Badge 
                   key={idx}
                   variant={factor.value > 0 ? "destructive" : "secondary"}
@@ -121,26 +150,20 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
                   data-testid={`badge-factor-${idx}`}
                 >
                   {factor.label}
-                  {factor.multiplier && factor.multiplier !== 1 ? ` ${factor.multiplier}x` : ''}
+                  {factor.multiplier && factor.multiplier !== 1 ? ` (${factor.multiplier}x)` : ''}
                 </Badge>
               ))}
-              {activeFactors.length > 3 && (
-                <Badge variant="outline" className="text-xs">
-                  +{activeFactors.length - 3}
+              {priceResult.surgeMultiplier > 1 && (
+                <Badge 
+                  variant={getSurgeColor(priceResult.surgeMultiplier)}
+                  className="font-bold"
+                  data-testid="badge-surge-multiplier"
+                >
+                  {getSurgeLabel(priceResult.surgeMultiplier)}
                 </Badge>
               )}
             </div>
           </div>
-        )}
-        
-        {priceResult.surgeMultiplier > 1 && (
-          <Badge 
-            variant={getSurgeColor(priceResult.surgeMultiplier)}
-            className="font-bold ml-2"
-            data-testid="badge-surge-multiplier"
-          >
-            {getSurgeLabel(priceResult.surgeMultiplier)}
-          </Badge>
         )}
       </div>
     );
