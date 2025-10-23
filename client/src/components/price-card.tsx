@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DollarSign, TrendingUp, TrendingDown } from "lucide-react";
-import { SimulationParams } from "@shared/schema";
+import { SimulationParams, PriceBreakdownItem } from "@shared/schema";
 import { useQuery } from "@tanstack/react-query";
 
 interface PriceCardProps {
@@ -95,9 +95,11 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
   const isIncreased = priceResult.percentageChange > 0;
 
   if (compact) {
+    const activeFactors = priceResult.breakdown.filter((item: PriceBreakdownItem) => item.value !== 0 && item.label !== "Tarifa Base");
+    
     return (
-      <div className="flex items-center gap-3 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20" data-testid="card-price">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center gap-4 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20" data-testid="card-price">
+        <div className="flex items-center gap-3">
           <DollarSign className="h-5 w-5 text-primary" />
           <div className="flex flex-col">
             <span className="text-xs text-muted-foreground">Preço Estimado</span>
@@ -106,10 +108,35 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
             </span>
           </div>
         </div>
+        
+        {activeFactors.length > 0 && (
+          <div className="flex items-center gap-2 border-l border-primary/20 pl-4">
+            <span className="text-xs text-muted-foreground">Fatores ativos:</span>
+            <div className="flex flex-wrap gap-1">
+              {activeFactors.slice(0, 3).map((factor: PriceBreakdownItem, idx: number) => (
+                <Badge 
+                  key={idx}
+                  variant={factor.value > 0 ? "destructive" : "secondary"}
+                  className="text-xs"
+                  data-testid={`badge-factor-${idx}`}
+                >
+                  {factor.label}
+                  {factor.multiplier && factor.multiplier !== 1 ? ` ${factor.multiplier}x` : ''}
+                </Badge>
+              ))}
+              {activeFactors.length > 3 && (
+                <Badge variant="outline" className="text-xs">
+                  +{activeFactors.length - 3}
+                </Badge>
+              )}
+            </div>
+          </div>
+        )}
+        
         {priceResult.surgeMultiplier > 1 && (
           <Badge 
             variant={getSurgeColor(priceResult.surgeMultiplier)}
-            className="font-bold"
+            className="font-bold ml-2"
             data-testid="badge-surge-multiplier"
           >
             {getSurgeLabel(priceResult.surgeMultiplier)}
