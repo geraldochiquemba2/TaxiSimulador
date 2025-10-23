@@ -43,7 +43,7 @@ export function PriceCard({ params }: PriceCardProps) {
 
   if (isLoading) {
     return (
-      <Card className="sticky top-24" data-testid="card-price-loading">
+      <Card className="sticky top-24 z-50" data-testid="card-price-loading">
         <CardHeader>
           <CardTitle>Calculando...</CardTitle>
         </CardHeader>
@@ -59,7 +59,7 @@ export function PriceCard({ params }: PriceCardProps) {
 
   if (error) {
     return (
-      <Card className="sticky top-24 border-destructive/20" data-testid="card-price-error">
+      <Card className="sticky top-24 z-50 border-destructive/20" data-testid="card-price-error">
         <CardHeader>
           <CardTitle className="text-destructive">Erro ao Calcular</CardTitle>
         </CardHeader>
@@ -79,7 +79,7 @@ export function PriceCard({ params }: PriceCardProps) {
   const isIncreased = priceResult.percentageChange > 0;
 
   return (
-    <Card className="sticky top-4 border-primary/20 self-start" data-testid="card-price">
+    <Card className="sticky top-24 z-50 border-primary/20 self-start" data-testid="card-price">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <CardTitle className="text-lg">Preço Estimado</CardTitle>
