@@ -20,14 +20,16 @@ Os valores foram calibrados com base em pesquisas do mercado real de táxis em A
 
 ## 🚀 Deploy no Render (Gratuito + Sempre Ativo)
 
+✨ **Sistema de Keep-Alive Nativo** - A aplicação se mantém acordada sozinha, sem precisar de serviços externos!
+
 Siga o guia completo em **[DEPLOY_RENDER.md](./DEPLOY_RENDER.md)** para fazer deploy gratuito no Render e manter a aplicação sempre ativa 24/7.
 
 ### Resumo Rápido:
 
 1. **Fazer Push para GitHub**
 2. **Conectar no Render** (deploy automático com render.yaml)
-3. **Configurar UptimeRobot** para manter ativo
-4. **Pronto!** App rodando 24/7 gratuitamente
+3. **Configurar variável `RENDER_EXTERNAL_URL`** (keep-alive automático)
+4. **Pronto!** App rodando 24/7 gratuitamente, sem hibernação
 
 ## 🛠️ Desenvolvimento Local
 

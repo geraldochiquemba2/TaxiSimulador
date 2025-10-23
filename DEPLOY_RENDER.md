@@ -2,11 +2,12 @@
 
 Este guia mostra como fazer deploy da aplicação no Render de forma **100% gratuita** e manter ela **sempre ativa** (sem hibernação).
 
+✨ **A aplicação possui sistema de keep-alive NATIVO** que se mantém acordada automaticamente, sem precisar de serviços externos!
+
 ## 📋 Pré-requisitos
 
 1. Conta no GitHub
 2. Conta no Render (gratuita): https://render.com
-3. Conta no UptimeRobot (gratuita): https://uptimerobot.com
 
 ---
 
@@ -55,29 +56,45 @@ git push -u origin main
 
 ---
 
-## 🔄 Passo 3: Configurar UptimeRobot (Manter App Sempre Ativa)
+## 🔄 Passo 3: Configurar Variável de Ambiente (Keep-Alive Automático)
 
-O plano gratuito do Render hiberna apps após 15 minutos de inatividade. O UptimeRobot faz "ping" na sua aplicação a cada 5 minutos para mantê-la acordada.
+A aplicação possui um sistema **nativo de keep-alive** que se mantém acordada sozinha! Você só precisa configurar uma variável de ambiente:
 
 ### Configuração:
 
-1. Acesse https://uptimerobot.com e crie uma conta gratuita
-2. No dashboard, clique em **"+ Add New Monitor"**
-3. Configure:
-   - **Monitor Type**: HTTP(s)
-   - **Friendly Name**: `Simulador Taxi Angola`
-   - **URL**: `https://SEU-APP.onrender.com/health`
-     - _(Substitua pelo URL real do seu app no Render)_
-   - **Monitoring Interval**: **5 minutes**
-4. Clique em **"Create Monitor"**
+1. No dashboard do Render, acesse seu web service
+2. Vá em **"Environment"** no menu lateral
+3. Adicione a variável:
+   - **Key**: `RENDER_EXTERNAL_URL`
+   - **Value**: Cole a URL do seu app (ex: `https://simulador-preco-taxi-angola.onrender.com`)
+4. Clique em **"Save Changes"**
+5. O app vai fazer redeploy automaticamente
+
+### ✅ Como Funciona
+
+A aplicação faz ping em si mesma a cada 10 minutos usando `node-cron`:
+- ✅ Evita hibernação após 15 minutos
+- ✅ Totalmente automático
+- ✅ Não precisa de serviços externos
+- ✅ Logs no console para acompanhar
+
+### Verificar nos Logs
+
+Após configurar, você verá mensagens assim nos logs:
+```
+[Keep-Alive] Iniciado - ping a cada 10 minutos
+[Keep-Alive] ✓ Ping inicial - Status: ok
+[Keep-Alive] ✓ Ping enviado - Status: ok, Uptime: 600s
+```
 
 ### ✅ Pronto!
 
 Agora sua aplicação:
 - ✅ Está rodando 24/7 no Render
-- ✅ Não hiberna (UptimeRobot mantém ativa)
+- ✅ Não hiberna (keep-alive automático)
 - ✅ Totalmente gratuito
 - ✅ Com 750 horas/mês gratuitas (suficiente para 24/7)
+- ✅ Sem dependências externas
 
 ---
 
@@ -115,7 +132,7 @@ https://SEU-APP.onrender.com
 
 ### ⚡ Cold Starts
 - Na primeira visita após inatividade, pode demorar 25-50 segundos para "acordar"
-- Com UptimeRobot configurado, isso não acontece
+- Com o keep-alive configurado, isso não acontece mais
 
 ### 📊 Limites do Plano Gratuito
 - **750 horas/mês** (31.25 dias = suficiente para 24/7)
@@ -133,9 +150,10 @@ Se precisar adicionar variáveis de ambiente:
 ## 🆘 Problemas Comuns
 
 ### App ainda está hibernando
-- Verifique se o UptimeRobot está ativo e fazendo pings
-- Confirme que o intervalo está em **5 minutos**
-- Verifique se a URL está correta: `https://SEU-APP.onrender.com/health`
+- Verifique se a variável `RENDER_EXTERNAL_URL` está configurada corretamente
+- Veja os logs no Render - deve aparecer `[Keep-Alive] Iniciado`
+- Confirme que a URL não tem `/` no final (ex: `https://seu-app.onrender.com` ✓)
+- Aguarde 10 minutos e verifique se aparecem mensagens de ping nos logs
 
 ### Build falhou
 - Verifique os logs no Render
