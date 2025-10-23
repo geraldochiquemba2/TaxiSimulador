@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { BarChart3, Plus, Minus } from "lucide-react";
-import { SimulationParams } from "@shared/schema";
+import { SimulationParams, PriceBreakdownItem } from "@shared/schema";
 import { useQuery } from "@tanstack/react-query";
 
 interface PriceBreakdownProps {
@@ -95,7 +95,7 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {priceResult.breakdown.map((item, index) => (
+          {priceResult.breakdown.map((item: PriceBreakdownItem, index: number) => (
             <div 
               key={index}
               className="space-y-2 p-4 rounded-lg bg-muted/30 border border-border"
