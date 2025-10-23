@@ -57,9 +57,9 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
   const allLoaded = queries.every(q => q.data);
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("pt-BR", {
+    return new Intl.NumberFormat("pt-AO", {
       style: "currency",
-      currency: "BRL",
+      currency: "AOA",
     }).format(price);
   };
 
@@ -158,7 +158,7 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
             <YAxis 
               tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
               stroke="hsl(var(--border))"
-              tickFormatter={(value) => `R$ ${value}`}
+              tickFormatter={(value) => `Kz ${value}`}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: "hsl(var(--muted))" }} />
             <Bar dataKey="price" radius={[8, 8, 0, 0]}>
