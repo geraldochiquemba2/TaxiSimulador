@@ -128,9 +128,9 @@ export default function Simulator() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-3">
               <div className="bg-primary text-primary-foreground p-2 rounded-lg">
                 <Car className="h-6 w-6" />
@@ -144,15 +144,18 @@ export default function Simulator() {
                 </p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={handleReset}
-              data-testid="button-reset"
-            >
-              <RotateCcw className="h-4 w-4 mr-2" />
-              Resetar
-            </Button>
+            <div className="flex items-center gap-4">
+              <PriceCard params={params} compact={true} />
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleReset}
+                data-testid="button-reset"
+              >
+                <RotateCcw className="h-4 w-4 mr-2" />
+                Resetar
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -437,7 +440,6 @@ export default function Simulator() {
           </div>
 
           <div className="lg:col-span-3 space-y-6">
-            <PriceCard params={params} />
             <PriceBreakdown params={params} />
             <ComparisonChart params={params} />
           </div>

@@ -6,9 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 
 interface PriceCardProps {
   params: SimulationParams;
+  compact?: boolean;
 }
 
-export function PriceCard({ params }: PriceCardProps) {
+export function PriceCard({ params, compact = false }: PriceCardProps) {
   const { data: priceResult, isLoading, error } = useQuery({
     queryKey: ["/api/calculate-price", params],
     queryFn: async () => {
@@ -42,6 +43,14 @@ export function PriceCard({ params }: PriceCardProps) {
   };
 
   if (isLoading) {
+    if (compact) {
+      return (
+        <div className="flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-lg" data-testid="card-price-loading">
+          <DollarSign className="h-5 w-5 text-primary animate-pulse" />
+          <span className="text-lg font-bold">Calculando...</span>
+        </div>
+      );
+    }
     return (
       <Card className="sticky top-24 z-50" data-testid="card-price-loading">
         <CardHeader>
@@ -58,6 +67,13 @@ export function PriceCard({ params }: PriceCardProps) {
   }
 
   if (error) {
+    if (compact) {
+      return (
+        <div className="flex items-center gap-2 bg-destructive/10 px-4 py-2 rounded-lg" data-testid="card-price-error">
+          <span className="text-lg font-bold text-destructive">Erro</span>
+        </div>
+      );
+    }
     return (
       <Card className="sticky top-24 z-50 border-destructive/20" data-testid="card-price-error">
         <CardHeader>
@@ -77,6 +93,31 @@ export function PriceCard({ params }: PriceCardProps) {
   }
 
   const isIncreased = priceResult.percentageChange > 0;
+
+  if (compact) {
+    return (
+      <div className="flex items-center gap-3 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20" data-testid="card-price">
+        <div className="flex items-center gap-2">
+          <DollarSign className="h-5 w-5 text-primary" />
+          <div className="flex flex-col">
+            <span className="text-xs text-muted-foreground">Preço Estimado</span>
+            <span className="text-2xl font-bold tracking-tight" data-testid="text-total-price">
+              {formatPrice(priceResult.totalPrice)}
+            </span>
+          </div>
+        </div>
+        {priceResult.surgeMultiplier > 1 && (
+          <Badge 
+            variant={getSurgeColor(priceResult.surgeMultiplier)}
+            className="font-bold"
+            data-testid="badge-surge-multiplier"
+          >
+            {getSurgeLabel(priceResult.surgeMultiplier)}
+          </Badge>
+        )}
+      </div>
+    );
+  }
 
   return (
     <Card className="sticky top-24 z-50 border-primary/20 self-start" data-testid="card-price">
