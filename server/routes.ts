@@ -139,6 +139,14 @@ function calculatePrice(params: z.infer<typeof simulationParamsSchema>): PriceRe
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  app.get("/health", (req, res) => {
+    res.status(200).json({ 
+      status: "ok", 
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime() 
+    });
+  });
+
   app.post("/api/calculate-price", async (req, res) => {
     try {
       const params = simulationParamsSchema.parse(req.body);

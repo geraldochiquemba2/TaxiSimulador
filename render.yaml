@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: simulador-preco-taxi-angola
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
