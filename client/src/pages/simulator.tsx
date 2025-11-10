@@ -565,13 +565,13 @@ export default function Simulator() {
               </Card>
             </div>
 
-            <div className={showAlgorithm ? 'lg:col-span-5' : 'lg:col-span-3'} space-y-6>
+            <div className={`space-y-6 ${showAlgorithm ? 'lg:col-span-5' : 'lg:col-span-3'}`}>
               <PriceBreakdown params={params} />
               <ComparisonChart params={params} />
             </div>
 
             {showAlgorithm && (
-              <div className="lg:col-span-4">
+              <div className="lg:col-span-4 min-h-0">
                 <AlgorithmViewer params={params} />
               </div>
             )}

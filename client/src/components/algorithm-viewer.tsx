@@ -376,8 +376,8 @@ if (surgeZone !== "none") {
   }
 
   return (
-    <Card className="h-full bg-slate-900 border-slate-700">
-      <CardHeader className="pb-3">
+    <Card className="h-full bg-slate-900 border-slate-700 flex flex-col">
+      <CardHeader className="pb-3 shrink-0">
         <CardTitle className="text-base flex items-center gap-2 text-slate-100">
           <Code2 className="h-4 w-4 text-yellow-400" />
           Algoritmo de Cálculo
@@ -386,8 +386,8 @@ if (surgeZone !== "none") {
           Veja como o preço é calculado passo a passo
         </p>
       </CardHeader>
-      <CardContent>
-        <ScrollArea className="h-[calc(100vh-12rem)]">
+      <CardContent className="flex-1 min-h-0">
+        <ScrollArea className="h-full max-h-[60vh] md:max-h-[70vh] lg:max-h-[calc(100vh-16rem)]">
           <div className="space-y-4 pr-4">
             {steps.map((step, index) => (
               <div
