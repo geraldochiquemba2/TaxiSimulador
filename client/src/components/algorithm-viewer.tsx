@@ -30,9 +30,31 @@ export function AlgorithmViewer({ params }: AlgorithmViewerProps) {
   steps.push({
     active: true,
     title: "1. Tarifa Base + Distância",
-    code: `baseFare = ${baseFare.toFixed(0)} Kz
-distanceCost = ${params.distance} km × ${fare.perKm.toFixed(0)} Kz/km = ${distanceCost.toFixed(0)} Kz
-total = ${baseFare.toFixed(0)} Kz + ${distanceCost.toFixed(0)} Kz = ${total.toFixed(0)} Kz`,
+    code: `// Define tarifas por categoria
+const VEHICLE_FARES = {
+  economy: { base: 500, perKm: 180 },
+  comfort: { base: 800, perKm: 250 },
+  premium: { base: 1200, perKm: 380 },
+  xl: { base: 1000, perKm: 280 }
+};
+
+// Calcula valores iniciais
+vehicleType = "${params.vehicleType}";
+baseFare = VEHICLE_FARES[vehicleType].base;
+baseFare = ${baseFare.toFixed(0)} Kz;
+
+perKm = VEHICLE_FARES[vehicleType].perKm;
+perKm = ${fare.perKm.toFixed(0)} Kz/km;
+
+distance = ${params.distance} km;
+distanceCost = distance × perKm;
+distanceCost = ${params.distance} × ${fare.perKm.toFixed(0)};
+distanceCost = ${distanceCost.toFixed(0)} Kz;
+
+// Soma tarifa base + distância
+total = baseFare + distanceCost;
+total = ${baseFare.toFixed(0)} + ${distanceCost.toFixed(0)};
+total = ${total.toFixed(0)} Kz;`,
     description: "Calcula o preço inicial baseado no tipo de veículo e distância"
   });
 
@@ -42,8 +64,21 @@ total = ${baseFare.toFixed(0)} Kz + ${distanceCost.toFixed(0)} Kz = ${total.toFi
     steps.push({
       active: true,
       title: "2. Adiciona Horário de Pico (+35%)",
-      code: `rushHourCharge = ${total.toFixed(0)} Kz × 0.35 = ${rushCharge.toFixed(0)} Kz
-total = ${total.toFixed(0)} Kz + ${rushCharge.toFixed(0)} Kz = ${(total + rushCharge).toFixed(0)} Kz`,
+      code: `// Verifica horário de pico
+if (isRushHour === true) {
+  // Calcula acréscimo de 35%
+  const RUSH_MULTIPLIER = 0.35;
+  rushHourCharge = total × RUSH_MULTIPLIER;
+  rushHourCharge = ${total.toFixed(0)} × 0.35;
+  rushHourCharge = ${rushCharge.toFixed(0)} Kz;
+  
+  // Adiciona ao total
+  total = total + rushHourCharge;
+  total = ${total.toFixed(0)} + ${rushCharge.toFixed(0)};
+  total = ${(total + rushCharge).toFixed(0)} Kz;
+  
+  console.log("Horário de pico aplicado!");
+}`,
       description: "Aplica multiplicador de horário de pico"
     });
     total += rushCharge;
@@ -51,8 +86,13 @@ total = ${total.toFixed(0)} Kz + ${rushCharge.toFixed(0)} Kz = ${(total + rushCh
     steps.push({
       active: false,
       title: "2. Horário de Pico (desativado)",
-      code: `// Não é horário de pico
-// Sem acréscimo`,
+      code: `// Verifica horário de pico
+if (isRushHour === true) {
+  // ...código do horário de pico
+} else {
+  console.log("Não é horário de pico");
+  // Sem acréscimo ao total
+}`,
       description: "Condição não aplicada"
     });
   }
@@ -63,8 +103,22 @@ total = ${total.toFixed(0)} Kz + ${rushCharge.toFixed(0)} Kz = ${(total + rushCh
     steps.push({
       active: true,
       title: "3. Adiciona Tarifa Noturna (+20%)",
-      code: `nightCharge = ${total.toFixed(0)} Kz × 0.20 = ${nightCharge.toFixed(0)} Kz
-total = ${total.toFixed(0)} Kz + ${nightCharge.toFixed(0)} Kz = ${(total + nightCharge).toFixed(0)} Kz`,
+      code: `// Verifica horário noturno (00h-06h)
+hour = ${params.hour};
+if (hour >= 0 && hour < 6) {
+  // Calcula adicional noturno de 20%
+  const NIGHT_MULTIPLIER = 0.20;
+  nightCharge = total × NIGHT_MULTIPLIER;
+  nightCharge = ${total.toFixed(0)} × 0.20;
+  nightCharge = ${nightCharge.toFixed(0)} Kz;
+  
+  // Adiciona ao total
+  total = total + nightCharge;
+  total = ${total.toFixed(0)} + ${nightCharge.toFixed(0)};
+  total = ${(total + nightCharge).toFixed(0)} Kz;
+  
+  console.log("Tarifa noturna aplicada!");
+}`,
       description: "Horário entre 00h-06h tem adicional noturno"
     });
     total += nightCharge;
@@ -72,8 +126,14 @@ total = ${total.toFixed(0)} Kz + ${nightCharge.toFixed(0)} Kz = ${(total + night
     steps.push({
       active: false,
       title: "3. Tarifa Noturna (desativada)",
-      code: `// Horário: ${params.hour}h (não é noturno)
-// Sem acréscimo`,
+      code: `// Verifica horário noturno (00h-06h)
+hour = ${params.hour};
+if (hour >= 0 && hour < 6) {
+  // ...código tarifa noturna
+} else {
+  console.log("Horário ${params.hour}h não é noturno");
+  // Sem acréscimo ao total
+}`,
       description: "Apenas entre 00h-06h"
     });
   }
@@ -84,8 +144,21 @@ total = ${total.toFixed(0)} Kz + ${nightCharge.toFixed(0)} Kz = ${(total + night
     steps.push({
       active: true,
       title: "4. Adiciona Feriado (+25%)",
-      code: `holidayCharge = ${total.toFixed(0)} Kz × 0.25 = ${holidayCharge.toFixed(0)} Kz
-total = ${total.toFixed(0)} Kz + ${holidayCharge.toFixed(0)} Kz = ${(total + holidayCharge).toFixed(0)} Kz`,
+      code: `// Verifica se é feriado
+if (isHoliday === true) {
+  // Calcula acréscimo de feriado (25%)
+  const HOLIDAY_MULTIPLIER = 0.25;
+  holidayCharge = total × HOLIDAY_MULTIPLIER;
+  holidayCharge = ${total.toFixed(0)} × 0.25;
+  holidayCharge = ${holidayCharge.toFixed(0)} Kz;
+  
+  // Adiciona ao total
+  total = total + holidayCharge;
+  total = ${total.toFixed(0)} + ${holidayCharge.toFixed(0)};
+  total = ${(total + holidayCharge).toFixed(0)} Kz;
+  
+  console.log("Tarifa de feriado aplicada!");
+}`,
       description: "Tarifa extra para feriados"
     });
     total += holidayCharge;
@@ -93,8 +166,13 @@ total = ${total.toFixed(0)} Kz + ${holidayCharge.toFixed(0)} Kz = ${(total + hol
     steps.push({
       active: false,
       title: "4. Feriado (desativado)",
-      code: `// Não é feriado
-// Sem acréscimo`,
+      code: `// Verifica se é feriado
+if (isHoliday === true) {
+  // ...código de feriado
+} else {
+  console.log("Não é feriado");
+  // Sem acréscimo ao total
+}`,
       description: "Condição não aplicada"
     });
   }
@@ -106,9 +184,28 @@ total = ${total.toFixed(0)} Kz + ${holidayCharge.toFixed(0)} Kz = ${(total + hol
     steps.push({
       active: true,
       title: `5. Adiciona Chuva (+${((weatherMultiplier - 1) * 100).toFixed(0)}%)`,
-      code: `weatherMultiplier = 1 + (${params.weatherSeverity}/100 × 0.4) = ${weatherMultiplier.toFixed(2)}
-weatherCharge = ${total.toFixed(0)} Kz × ${(weatherMultiplier - 1).toFixed(2)} = ${weatherCharge.toFixed(0)} Kz
-total = ${total.toFixed(0)} Kz + ${weatherCharge.toFixed(0)} Kz = ${(total + weatherCharge).toFixed(0)} Kz`,
+      code: `// Verifica condições climáticas
+if (hasRain === true && weatherSeverity > 0) {
+  // Calcula multiplicador baseado na intensidade
+  // Máximo 40% de acréscimo
+  weatherSeverity = ${params.weatherSeverity};
+  const MAX_WEATHER_IMPACT = 0.4;
+  
+  weatherMultiplier = 1 + (weatherSeverity/100 × MAX_WEATHER_IMPACT);
+  weatherMultiplier = 1 + (${params.weatherSeverity}/100 × 0.4);
+  weatherMultiplier = ${weatherMultiplier.toFixed(2)};
+  
+  // Calcula o valor adicional
+  weatherCharge = total × (weatherMultiplier - 1);
+  weatherCharge = ${total.toFixed(0)} × ${(weatherMultiplier - 1).toFixed(2)};
+  weatherCharge = ${weatherCharge.toFixed(0)} Kz;
+  
+  // Adiciona ao total
+  total = total + weatherCharge;
+  total = ${(total + weatherCharge).toFixed(0)} Kz;
+  
+  console.log("Acréscimo por chuva aplicado!");
+}`,
       description: `Intensidade ${params.weatherSeverity}% aumenta o preço`
     });
     total += weatherCharge;
@@ -116,8 +213,13 @@ total = ${total.toFixed(0)} Kz + ${weatherCharge.toFixed(0)} Kz = ${(total + wea
     steps.push({
       active: false,
       title: "5. Chuva (desativada)",
-      code: `// Sem chuva
-// Sem acréscimo`,
+      code: `// Verifica condições climáticas
+if (hasRain === true && weatherSeverity > 0) {
+  // ...código de chuva
+} else {
+  console.log("Sem chuva");
+  // Sem acréscimo ao total
+}`,
       description: "Condição não aplicada"
     });
   }
@@ -129,9 +231,30 @@ total = ${total.toFixed(0)} Kz + ${weatherCharge.toFixed(0)} Kz = ${(total + wea
     steps.push({
       active: true,
       title: `6. Adiciona Trânsito (+${((trafficMultiplier - 1) * 100).toFixed(0)}%)`,
-      code: `trafficMultiplier = 1 + ((${params.trafficIntensity} - 30)/100 × 0.5) = ${trafficMultiplier.toFixed(2)}
-trafficCharge = ${total.toFixed(0)} Kz × ${(trafficMultiplier - 1).toFixed(2)} = ${trafficCharge.toFixed(0)} Kz
-total = ${total.toFixed(0)} Kz + ${trafficCharge.toFixed(0)} Kz = ${(total + trafficCharge).toFixed(0)} Kz`,
+      code: `// Verifica intensidade do trânsito
+trafficIntensity = ${params.trafficIntensity};
+const TRAFFIC_THRESHOLD = 30;
+
+if (trafficIntensity > TRAFFIC_THRESHOLD) {
+  // Calcula acréscimo progressivo
+  // Máximo 50% quando trânsito = 100%
+  const MAX_TRAFFIC_IMPACT = 0.5;
+  
+  trafficMultiplier = 1 + ((trafficIntensity - 30)/100 × MAX_TRAFFIC_IMPACT);
+  trafficMultiplier = 1 + ((${params.trafficIntensity} - 30)/100 × 0.5);
+  trafficMultiplier = ${trafficMultiplier.toFixed(2)};
+  
+  // Calcula valor adicional
+  trafficCharge = total × (trafficMultiplier - 1);
+  trafficCharge = ${total.toFixed(0)} × ${(trafficMultiplier - 1).toFixed(2)};
+  trafficCharge = ${trafficCharge.toFixed(0)} Kz;
+  
+  // Adiciona ao total
+  total = total + trafficCharge;
+  total = ${(total + trafficCharge).toFixed(0)} Kz;
+  
+  console.log("Acréscimo por trânsito aplicado!");
+}`,
       description: `Trânsito acima de 30% aumenta o tempo da viagem`
     });
     total += trafficCharge;
@@ -139,8 +262,14 @@ total = ${total.toFixed(0)} Kz + ${trafficCharge.toFixed(0)} Kz = ${(total + tra
     steps.push({
       active: false,
       title: "6. Trânsito (sem impacto)",
-      code: `// Trânsito: ${params.trafficIntensity}% (< 30%)
-// Sem acréscimo`,
+      code: `// Verifica intensidade do trânsito
+trafficIntensity = ${params.trafficIntensity};
+if (trafficIntensity > 30) {
+  // ...código de trânsito
+} else {
+  console.log("Trânsito ${params.trafficIntensity}% está normal");
+  // Sem acréscimo (apenas > 30%)
+}`,
       description: "Apenas acima de 30% de intensidade"
     });
   }
@@ -151,8 +280,21 @@ total = ${total.toFixed(0)} Kz + ${trafficCharge.toFixed(0)} Kz = ${(total + tra
     steps.push({
       active: true,
       title: "7. Adiciona Evento Especial (+30%)",
-      code: `eventCharge = ${total.toFixed(0)} Kz × 0.30 = ${eventCharge.toFixed(0)} Kz
-total = ${total.toFixed(0)} Kz + ${eventCharge.toFixed(0)} Kz = ${(total + eventCharge).toFixed(0)} Kz`,
+      code: `// Verifica eventos especiais na região
+if (hasSpecialEvent === true) {
+  // Eventos aumentam demanda em 30%
+  const EVENT_MULTIPLIER = 0.30;
+  eventCharge = total × EVENT_MULTIPLIER;
+  eventCharge = ${total.toFixed(0)} × 0.30;
+  eventCharge = ${eventCharge.toFixed(0)} Kz;
+  
+  // Adiciona ao total
+  total = total + eventCharge;
+  total = ${total.toFixed(0)} + ${eventCharge.toFixed(0)};
+  total = ${(total + eventCharge).toFixed(0)} Kz;
+  
+  console.log("Acréscimo por evento especial!");
+}`,
       description: "Shows, jogos ou festivais aumentam a demanda"
     });
     total += eventCharge;
@@ -160,8 +302,13 @@ total = ${total.toFixed(0)} Kz + ${eventCharge.toFixed(0)} Kz = ${(total + event
     steps.push({
       active: false,
       title: "7. Evento Especial (desativado)",
-      code: `// Sem eventos especiais
-// Sem acréscimo`,
+      code: `// Verifica eventos especiais na região
+if (hasSpecialEvent === true) {
+  // ...código de evento
+} else {
+  console.log("Sem eventos especiais");
+  // Sem acréscimo ao total
+}`,
       description: "Condição não aplicada"
     });
   }
@@ -179,9 +326,33 @@ total = ${total.toFixed(0)} Kz + ${eventCharge.toFixed(0)} Kz = ${(total + event
     steps.push({
       active: true,
       title: `8. Aplica Tarifa Dinâmica (${surgeMultiplier}x)`,
-      code: `surgeMultiplier = ${surgeMultiplier}x
-surgeCharge = ${total.toFixed(0)} Kz × ${(surgeMultiplier - 1).toFixed(1)} = ${surgeCharge.toFixed(0)} Kz
-TOTAL FINAL = ${total.toFixed(0)} Kz + ${surgeCharge.toFixed(0)} Kz = ${(total + surgeCharge).toFixed(0)} Kz`,
+      code: `// Verifica zona de demanda dinâmica
+const SURGE_ZONES = {
+  none: 1.0,
+  low: 1.2,
+  medium: 1.5,
+  high: 2.0
+};
+
+surgeZone = "${params.surgeZone}";
+if (surgeZone !== "none") {
+  // Aplica multiplicador da zona
+  surgeMultiplier = SURGE_ZONES[surgeZone];
+  surgeMultiplier = ${surgeMultiplier}x;
+  
+  // Calcula valor adicional
+  surgeCharge = total × (surgeMultiplier - 1);
+  surgeCharge = ${total.toFixed(0)} × ${(surgeMultiplier - 1).toFixed(1)};
+  surgeCharge = ${surgeCharge.toFixed(0)} Kz;
+  
+  // Calcula preço final
+  TOTAL_FINAL = total + surgeCharge;
+  TOTAL_FINAL = ${total.toFixed(0)} + ${surgeCharge.toFixed(0)};
+  TOTAL_FINAL = ${(total + surgeCharge).toFixed(0)} Kz;
+  
+  console.log("Tarifa dinâmica aplicada!");
+  return TOTAL_FINAL;
+}`,
       description: "Multiplicador de zona de alta demanda"
     });
     total += surgeCharge;
@@ -189,8 +360,17 @@ TOTAL FINAL = ${total.toFixed(0)} Kz + ${surgeCharge.toFixed(0)} Kz = ${(total +
     steps.push({
       active: false,
       title: "8. Tarifa Dinâmica (zona normal)",
-      code: `// Zona normal (sem multiplicador)
-TOTAL FINAL = ${total.toFixed(0)} Kz`,
+      code: `// Verifica zona de demanda dinâmica
+surgeZone = "${params.surgeZone}";
+if (surgeZone !== "none") {
+  // ...código de surge pricing
+} else {
+  console.log("Zona normal - sem multiplicador");
+  TOTAL_FINAL = total;
+  TOTAL_FINAL = ${total.toFixed(0)} Kz;
+  
+  return TOTAL_FINAL;
+}`,
       description: "Sem multiplicador adicional"
     });
   }
