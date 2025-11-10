@@ -18,12 +18,14 @@ import {
   Sunrise,
   Calendar,
   HelpCircle,
-  Info
+  Info,
+  Code2
 } from "lucide-react";
 import { SimulationParams, ScenarioPreset } from "@shared/schema";
 import { PriceCard } from "@/components/price-card";
 import { PriceBreakdown } from "@/components/price-breakdown";
 import { ComparisonChart } from "@/components/comparison-chart";
+import { AlgorithmViewer } from "@/components/algorithm-viewer";
 
 const SCENARIO_PRESETS: ScenarioPreset[] = [
   {
@@ -94,6 +96,7 @@ const DEFAULT_PARAMS: SimulationParams = {
 
 export default function Simulator() {
   const [params, setParams] = useState<SimulationParams>(DEFAULT_PARAMS);
+  const [showAlgorithm, setShowAlgorithm] = useState(false);
 
   const updateParam = <K extends keyof SimulationParams>(
     key: K,
@@ -146,6 +149,16 @@ export default function Simulator() {
               <div className="flex items-center gap-2">
                 <PriceCard params={params} compact={true} />
                 <Button
+                  variant={showAlgorithm ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowAlgorithm(!showAlgorithm)}
+                  data-testid="button-toggle-algorithm"
+                  className="hidden sm:flex"
+                >
+                  <Code2 className="h-4 w-4 mr-1" />
+                  <span className="text-xs">Código</span>
+                </Button>
+                <Button
                   variant="outline"
                   size="sm"
                   onClick={handleReset}
@@ -174,8 +187,8 @@ export default function Simulator() {
             </CardContent>
           </Card>
 
-          <div className="grid lg:grid-cols-5 gap-6">
-            <div className="lg:col-span-2 space-y-4">
+          <div className={`grid gap-6 ${showAlgorithm ? 'lg:grid-cols-12' : 'lg:grid-cols-5'}`}>
+            <div className={`${showAlgorithm ? 'lg:col-span-3' : 'lg:col-span-2'} space-y-4`}>
               <Card data-testid="card-presets">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center gap-2">
@@ -552,10 +565,16 @@ export default function Simulator() {
               </Card>
             </div>
 
-            <div className="lg:col-span-3 space-y-6">
+            <div className={showAlgorithm ? 'lg:col-span-5' : 'lg:col-span-3'} space-y-6>
               <PriceBreakdown params={params} />
               <ComparisonChart params={params} />
             </div>
+
+            {showAlgorithm && (
+              <div className="lg:col-span-4">
+                <AlgorithmViewer params={params} />
+              </div>
+            )}
           </div>
         </main>
 
