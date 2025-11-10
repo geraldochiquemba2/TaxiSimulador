@@ -110,10 +110,10 @@ Calcula o preço de uma corrida baseado nos parâmetros fornecidos.
 O algoritmo considera múltiplos fatores:
 
 1. **Tarifa Base**: Varia por tipo de veículo
-   - Econômico: R$ 5,00 + R$ 1,80/km
-   - Conforto: R$ 8,00 + R$ 2,50/km
-   - Premium: R$ 12,00 + R$ 3,80/km
-   - XL: R$ 10,00 + R$ 2,80/km
+   - Econômico: 500 Kz + 180 Kz/km
+   - Conforto: 800 Kz + 250 Kz/km
+   - Premium: 1200 Kz + 380 Kz/km
+   - XL: 1000 Kz + 280 Kz/km
 
 2. **Multiplicadores de Tempo**:
    - Horário de Pico: +35%
@@ -147,7 +147,7 @@ O algoritmo considera múltiplos fatores:
 
 ## 📊 Cenários de Exemplo
 
-- **Tarde Tranquila**: 10km, econômico, sem fatores extras → ~R$ 23,00
+- **Tarde Tranquila**: 10km, econômico, sem fatores extras → ~2.300 Kz
 - **Horário de Pico**: +35% no preço
 - **Chuva Forte + Evento**: Pode dobrar ou triplicar o preço
 - **Premium em Zona de Alta Demanda**: 5-10x o preço base
