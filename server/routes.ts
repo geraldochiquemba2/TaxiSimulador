@@ -5,17 +5,17 @@ import { simulationParamsSchema, type PriceResult, type PriceBreakdownItem } fro
 
 function calculatePrice(params: z.infer<typeof simulationParamsSchema>): PriceResult {
   const VEHICLE_BASE_FARES = {
-    economy: 800,
-    comfort: 1200,
-    premium: 1800,
-    xl: 1500,
+    economy: 500,
+    comfort: 800,
+    premium: 1200,
+    xl: 1000,
   };
 
   const VEHICLE_PER_KM = {
-    economy: 700,
-    comfort: 900,
-    premium: 1500,
-    xl: 1100,
+    economy: 180,
+    comfort: 250,
+    premium: 380,
+    xl: 280,
   };
 
   let baseFare = VEHICLE_BASE_FARES[params.vehicleType];
