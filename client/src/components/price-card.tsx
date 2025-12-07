@@ -103,8 +103,8 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
           <div className="flex items-center gap-3">
             <DollarSign className="h-5 w-5 text-primary" />
             <div className="flex flex-col">
-              <span className="text-xs text-muted-foreground">Preço Total</span>
-              <span className="text-2xl font-bold tracking-tight" data-testid="text-total-price">
+              <span className="text-xs text-white/60">Preço Total</span>
+              <span className="text-2xl font-bold tracking-tight text-white" data-testid="text-total-price">
                 {formatPrice(priceResult.totalPrice)}
               </span>
             </div>
@@ -112,8 +112,8 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
 
           <div className="flex flex-col items-end gap-1">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">Tarifa Base:</span>
-              <span className="text-sm font-semibold" data-testid="text-base-fare-compact">
+              <span className="text-xs text-white/60">Tarifa Base:</span>
+              <span className="text-sm font-semibold text-white" data-testid="text-base-fare-compact">
                 {formatPrice(priceResult.baseFare)}
               </span>
             </div>
@@ -140,7 +140,7 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
 
         {(activeFactors.length > 0 || priceResult.surgeMultiplier > 1) && (
           <div className="flex items-center gap-2 pt-2 border-t border-primary/20">
-            <span className="text-xs text-muted-foreground shrink-0">Fatores:</span>
+            <span className="text-xs text-white/60 shrink-0">Fatores:</span>
             <div className="flex flex-wrap gap-1">
               {activeFactors.map((factor: PriceBreakdownItem, idx: number) => (
                 <Badge 
@@ -173,7 +173,7 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
     <Card className="sticky top-24 z-50 border-primary/20 self-start" data-testid="card-price">
       <CardHeader className="pb-4 sm:pb-6">
         <div className="flex items-start justify-between">
-          <CardTitle className="text-lg">Preço Estimado</CardTitle>
+          <CardTitle className="text-lg text-white">Preço Estimado</CardTitle>
           <div className="bg-primary/10 text-primary p-2 rounded-lg">
             <DollarSign className="h-5 w-5" />
           </div>
@@ -214,8 +214,8 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
           <div className="bg-muted/50 rounded-lg p-4 border border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium">Multiplicador Ativo</p>
-                <p className="text-xs text-muted-foreground mt-0.5">
+                <p className="text-sm font-medium text-white">Multiplicador Ativo</p>
+                <p className="text-xs text-white/60 mt-0.5">
                   Devido à alta demanda
                 </p>
               </div>
@@ -232,8 +232,8 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
 
         <div className="pt-4 border-t">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Tarifa Base</span>
-            <span className="font-medium" data-testid="text-base-fare">
+            <span className="text-white/60">Tarifa Base</span>
+            <span className="font-medium text-white" data-testid="text-base-fare">
               {formatPrice(priceResult.baseFare)}
             </span>
           </div>
