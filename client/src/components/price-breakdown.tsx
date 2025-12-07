@@ -48,7 +48,7 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
 
   if (isLoading) {
     return (
-      <Card data-testid="card-breakdown-loading">
+      <Card data-testid="card-breakdown-loading" className="bg-black/40 backdrop-blur-md border-white/10">
         <CardHeader>
           <CardTitle>Carregando...</CardTitle>
         </CardHeader>
@@ -65,7 +65,7 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
 
   if (error) {
     return (
-      <Card data-testid="card-breakdown-error">
+      <Card data-testid="card-breakdown-error" className="bg-black/40 backdrop-blur-md border-white/10">
         <CardHeader>
           <CardTitle className="text-destructive">Erro</CardTitle>
         </CardHeader>
@@ -91,13 +91,13 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
   };
 
   return (
-    <Card data-testid="card-breakdown">
+    <Card data-testid="card-breakdown" className="bg-black/40 backdrop-blur-md border-white/10">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
           <BarChart3 className="h-4 w-4 text-primary" />
-          <CardTitle className="text-base">Como chegamos nesse preço?</CardTitle>
+          <CardTitle className="text-base text-white">Como chegamos nesse preço?</CardTitle>
         </div>
-        <CardDescription className="text-xs">
+        <CardDescription className="text-xs text-white/60">
           Cada fator aumenta ou diminui o valor da corrida
         </CardDescription>
       </CardHeader>

@@ -1,9 +1,12 @@
 import express, { type Request, Response, NextFunction } from "express";
+import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { startKeepAlive } from "./keep-alive";
 
 const app = express();
+
+app.use("/attached_assets", express.static(path.resolve(process.cwd(), "attached_assets")));
 
 declare module 'http' {
   interface IncomingMessage {

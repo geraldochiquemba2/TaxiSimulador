@@ -26,6 +26,7 @@ import { PriceCard } from "@/components/price-card";
 import { PriceBreakdown } from "@/components/price-breakdown";
 import { ComparisonChart } from "@/components/comparison-chart";
 import { AlgorithmViewer } from "@/components/algorithm-viewer";
+import { VideoBackground } from "@/components/video-background";
 
 const SCENARIO_PRESETS: ScenarioPreset[] = [
   {
@@ -129,8 +130,9 @@ export default function Simulator() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background">
-        <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+      <VideoBackground />
+      <div className="min-h-screen relative bg-transparent" style={{ zIndex: 10 }}>
+        <header className="border-b border-white/10 bg-black/40 backdrop-blur-md sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
@@ -138,10 +140,10 @@ export default function Simulator() {
                   <Car className="h-5 w-5" />
                 </div>
                 <div>
-                  <h1 className="text-lg sm:text-xl font-bold" data-testid="text-app-title">
+                  <h1 className="text-lg sm:text-xl font-bold text-white" data-testid="text-app-title">
                     Simulador de Preços
                   </h1>
-                  <p className="text-xs text-muted-foreground hidden sm:block">
+                  <p className="text-xs text-white/70 hidden sm:block">
                     Aprenda como funciona a tarifa dinâmica
                   </p>
                 </div>
@@ -172,14 +174,14 @@ export default function Simulator() {
         </header>
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <Card className="mb-6 bg-primary/5 border-primary/20">
+          <Card className="mb-6 bg-black/40 backdrop-blur-md border-white/10">
             <CardContent className="pt-6">
               <div className="flex items-start gap-3">
                 <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-semibold text-sm mb-1">Como funciona?</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Aplicativos de transporte usam <strong>preços dinâmicos</strong> que mudam conforme a demanda.
+                  <h3 className="font-semibold text-sm mb-1 text-white">Como funciona?</h3>
+                  <p className="text-sm text-white/70">
+                    Aplicativos de transporte usam <strong className="text-white">preços dinâmicos</strong> que mudam conforme a demanda.
                     Teste diferentes cenários abaixo e veja como cada fator afeta o valor da corrida.
                   </p>
                 </div>
@@ -189,13 +191,13 @@ export default function Simulator() {
 
           <div className={`grid gap-6 ${showAlgorithm ? 'lg:grid-cols-12' : 'lg:grid-cols-5'}`}>
             <div className={`${showAlgorithm ? 'lg:col-span-3' : 'lg:col-span-2'} space-y-4`}>
-              <Card data-testid="card-presets">
+              <Card data-testid="card-presets" className="bg-black/40 backdrop-blur-md border-white/10">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
+                  <CardTitle className="text-base flex items-center gap-2 text-white">
                     <Zap className="h-4 w-4 text-primary" />
                     Cenários Prontos
                   </CardTitle>
-                  <CardDescription className="text-xs">
+                  <CardDescription className="text-xs text-white/60">
                     Clique para testar situações comuns
                   </CardDescription>
                 </CardHeader>
@@ -222,9 +224,9 @@ export default function Simulator() {
                 </CardContent>
               </Card>
 
-              <Card data-testid="card-trip-details">
+              <Card data-testid="card-trip-details" className="bg-black/40 backdrop-blur-md border-white/10">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
+                  <CardTitle className="text-base flex items-center gap-2 text-white">
                     <Navigation className="h-4 w-4 text-primary" />
                     Configurações Básicas
                   </CardTitle>
@@ -233,7 +235,7 @@ export default function Simulator() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Label htmlFor="distance" className="text-sm font-medium">
+                        <Label htmlFor="distance" className="text-sm font-medium text-white">
                           Distância
                         </Label>
                         <Tooltip>
@@ -271,7 +273,7 @@ export default function Simulator() {
 
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <Label htmlFor="vehicle-type" className="text-sm font-medium">
+                      <Label htmlFor="vehicle-type" className="text-sm font-medium text-white">
                         Categoria do Veículo
                       </Label>
                       <Tooltip>
@@ -313,7 +315,7 @@ export default function Simulator() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Label htmlFor="hour" className="text-sm font-medium">
+                        <Label htmlFor="hour" className="text-sm font-medium text-white">
                           Horário
                         </Label>
                         <Tooltip>
@@ -353,9 +355,9 @@ export default function Simulator() {
                 </CardContent>
               </Card>
 
-              <Card data-testid="card-conditions">
+              <Card data-testid="card-conditions" className="bg-black/40 backdrop-blur-md border-white/10">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
+                  <CardTitle className="text-base flex items-center gap-2 text-white">
                     <CloudRain className="h-4 w-4 text-primary" />
                     Condições Especiais
                   </CardTitle>
@@ -364,7 +366,7 @@ export default function Simulator() {
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
-                        <Label htmlFor="rain" className="text-sm font-medium">
+                        <Label htmlFor="rain" className="text-sm font-medium text-white">
                           Está chovendo?
                         </Label>
                         <Tooltip>
@@ -399,7 +401,7 @@ export default function Simulator() {
                   {params.hasRain && (
                     <div className="space-y-2 pl-4 border-l-2 border-primary/20">
                       <div className="flex items-center justify-between">
-                        <Label htmlFor="weather-severity" className="text-xs font-medium">
+                        <Label htmlFor="weather-severity" className="text-xs font-medium text-white">
                           Intensidade
                         </Label>
                         <Badge variant="outline" className="text-xs" data-testid="text-weather-severity-value">
@@ -423,7 +425,7 @@ export default function Simulator() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Label htmlFor="traffic" className="text-sm font-medium">
+                        <Label htmlFor="traffic" className="text-sm font-medium text-white">
                           Trânsito
                         </Label>
                         <Tooltip>
@@ -462,7 +464,7 @@ export default function Simulator() {
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
-                        <Label htmlFor="holiday" className="text-sm font-medium">
+                        <Label htmlFor="holiday" className="text-sm font-medium text-white">
                           Feriado
                         </Label>
                         <Tooltip>
@@ -493,7 +495,7 @@ export default function Simulator() {
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2">
-                        <Label htmlFor="special-event" className="text-sm font-medium">
+                        <Label htmlFor="special-event" className="text-sm font-medium text-white">
                           Evento Especial
                         </Label>
                         <Tooltip>
@@ -525,7 +527,7 @@ export default function Simulator() {
 
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <Label htmlFor="surge-zone" className="text-sm font-medium">
+                      <Label htmlFor="surge-zone" className="text-sm font-medium text-white">
                         Zona de Demanda
                       </Label>
                       <Tooltip>
@@ -580,13 +582,13 @@ export default function Simulator() {
           </div>
         </main>
 
-        <footer className="border-t mt-12 py-6 bg-card/30">
+        <footer className="border-t border-white/10 mt-12 py-6 bg-black/40 backdrop-blur-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-white/70">
                 Este é um simulador educacional. Os preços não refletem tarifas reais.
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-white/50">
                 Desenvolvido para ensinar como funcionam os preços dinâmicos
               </p>
             </div>

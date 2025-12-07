@@ -98,7 +98,7 @@ export function PriceCard({ params, compact = false }: PriceCardProps) {
     const activeFactors = priceResult.breakdown.filter((item: PriceBreakdownItem) => item.value !== 0 && item.label !== "Tarifa Base");
 
     return (
-      <div className="flex flex-col gap-3 bg-primary/10 px-4 py-3 rounded-lg border border-primary/20 flex-1" data-testid="card-price">
+      <div className="flex flex-col gap-3 bg-black/40 backdrop-blur-md px-4 py-3 rounded-lg border border-white/10 flex-1" data-testid="card-price">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <DollarSign className="h-5 w-5 text-primary" />

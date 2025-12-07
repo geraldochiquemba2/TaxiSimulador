@@ -65,7 +65,7 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
 
   if (isLoading) {
     return (
-      <Card data-testid="card-chart-loading">
+      <Card data-testid="card-chart-loading" className="bg-black/40 backdrop-blur-md border-white/10">
         <CardHeader>
           <CardTitle>Carregando comparação...</CardTitle>
         </CardHeader>
@@ -78,7 +78,7 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
 
   if (hasError) {
     return (
-      <Card data-testid="card-chart-error">
+      <Card data-testid="card-chart-error" className="bg-black/40 backdrop-blur-md border-white/10">
         <CardHeader>
           <CardTitle className="text-destructive">Erro</CardTitle>
         </CardHeader>
@@ -125,14 +125,14 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
   };
 
   return (
-    <Card data-testid="card-chart">
+    <Card data-testid="card-chart" className="bg-black/40 backdrop-blur-md border-white/10">
       <CardHeader className="pb-4 sm:pb-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2">
             <LineChart className="h-5 w-5 text-primary" />
             <div>
-              <CardTitle className="text-lg sm:text-xl">Comparação de Cenários</CardTitle>
-              <CardDescription className="mt-1 text-xs sm:text-sm">
+              <CardTitle className="text-lg sm:text-xl text-white">Comparação de Cenários</CardTitle>
+              <CardDescription className="mt-1 text-xs sm:text-sm text-white/60">
                 Veja como diferentes fatores impactam o preço
               </CardDescription>
             </div>
@@ -175,11 +175,11 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
         <div className="mt-4 flex items-center justify-center gap-6 text-sm">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: COLORS.current }} />
-            <span className="text-muted-foreground">Cenário Atual</span>
+            <span className="text-white/70">Cenário Atual</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: COLORS.other }} />
-            <span className="text-muted-foreground">Comparações</span>
+            <span className="text-white/70">Comparações</span>
           </div>
         </div>
       </CardContent>
