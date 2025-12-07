@@ -167,8 +167,8 @@ export default function Simulator() {
                   data-testid="button-reset"
                   className="gap-1"
                 >
-                  <RotateCcw className="h-4 w-4" />
-                  <span className="hidden sm:inline text-xs">Resetar</span>
+                  <RotateCcw className="h-4 w-4 text-white" />
+                  <span className="hidden sm:inline text-xs text-white">Resetar</span>
                 </Button>
               </div>
             </div>
