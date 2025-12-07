@@ -572,7 +572,9 @@ export default function Simulator() {
 
             {showAlgorithm && (
               <div className="lg:col-span-4 min-h-0">
-                <AlgorithmViewer params={params} />
+                <div className="sticky top-20 z-40">
+                  <AlgorithmViewer params={params} />
+                </div>
               </div>
             )}
           </div>
