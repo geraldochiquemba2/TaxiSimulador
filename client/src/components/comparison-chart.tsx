@@ -67,7 +67,7 @@ export function ComparisonChart({ params }: ComparisonChartProps) {
     return (
       <Card data-testid="card-chart-loading" className="bg-black/40 backdrop-blur-md border-white/10">
         <CardHeader>
-          <CardTitle>Carregando comparação...</CardTitle>
+          <CardTitle className="text-white">Carregando comparação...</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-80 bg-muted animate-pulse rounded-lg" />

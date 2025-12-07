@@ -165,8 +165,10 @@ export default function Simulator() {
                   size="sm"
                   onClick={handleReset}
                   data-testid="button-reset"
+                  className="gap-1"
                 >
                   <RotateCcw className="h-4 w-4" />
+                  <span className="hidden sm:inline text-xs">Resetar</span>
                 </Button>
               </div>
             </div>
@@ -213,9 +215,9 @@ export default function Simulator() {
                       >
                         <div className="flex items-center gap-2 w-full">
                           {getPresetIcon(preset.icon)}
-                          <span className="text-xs font-medium">{preset.name}</span>
+                          <span className="text-xs font-medium text-white">{preset.name}</span>
                         </div>
-                        <span className="text-xs text-muted-foreground text-left">
+                        <span className="text-xs text-white/70 text-left">
                           {preset.description}
                         </span>
                       </Button>

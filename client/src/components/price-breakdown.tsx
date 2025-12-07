@@ -118,7 +118,7 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">{item.label}</span>
+                    <span className="text-sm font-medium text-white">{item.label}</span>
                     {item.multiplier && item.multiplier !== 1 && (
                       <Badge 
                         variant={item.value > 0 ? "destructive" : "secondary"}
@@ -130,7 +130,7 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
                     )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs text-white/60">
                       {getImpactLabel(item.impact)}
                     </span>
                   </div>
@@ -146,7 +146,7 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
                       className={`text-sm font-bold ${
                         item.value > 0 ? "text-destructive" : 
                         item.value < 0 ? "text-green-600" : 
-                        "text-foreground"
+                        "text-white"
                       }`}
                       data-testid={`text-breakdown-value-${index}`}
                     >
@@ -154,7 +154,7 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
                     </span>
                   </div>
                   {item.value !== 0 && (
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs text-white/60">
                       {item.value > 0 ? "adicionado" : "economizado"}
                     </span>
                   )}
@@ -167,8 +167,8 @@ export function PriceBreakdown({ params }: PriceBreakdownProps) {
         <div className="mt-6 pt-4 border-t-2 border-primary/20">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-base font-semibold">Valor Total</span>
-              <p className="text-xs text-muted-foreground">Soma de todos os fatores</p>
+              <span className="text-base font-semibold text-white">Valor Total</span>
+              <p className="text-xs text-white/60">Soma de todos os fatores</p>
             </div>
             <span className="text-2xl font-bold text-primary" data-testid="text-breakdown-total">
               {formatPrice(priceResult.totalPrice)}
