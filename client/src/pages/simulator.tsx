@@ -158,7 +158,7 @@ export default function Simulator() {
                   className="hidden sm:flex"
                 >
                   <Code2 className="h-4 w-4 mr-1" />
-                  <span className="text-xs">Código</span>
+                  <span className="text-xs text-white">Código</span>
                 </Button>
                 <Button
                   variant="outline"
