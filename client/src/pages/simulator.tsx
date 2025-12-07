@@ -157,7 +157,7 @@ export default function Simulator() {
                   data-testid="button-toggle-algorithm"
                   className="hidden sm:flex"
                 >
-                  <Code2 className="h-4 w-4 mr-1" />
+                  <Code2 className="h-4 w-4 mr-1 text-white" />
                   <span className="text-xs text-white">Código</span>
                 </Button>
                 <Button
