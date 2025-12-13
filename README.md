@@ -1,120 +1,155 @@
+
 # 🚕 Simulador de Preços de Táxi - Angola
 
-Aplicação web educacional para entender como funcionam os preços dinâmicos em aplicativos de transporte, adaptada para o mercado angolano com valores em **Kwanza (Kz)**.
+## Mini-Projecto \#1 - Aplicações Web e Modelagem de Preços
 
-## 💰 Preços Baseados no Mercado Angolano
+### Instituto Superior Politécnico de Tecnologias e Ciências (ISPTEC)
 
-Os valores foram calibrados com base em pesquisas do mercado real de táxis em Angola (2025):
-- **Bandeirada**: 800-1.800 Kz (dependendo da categoria)
-- **Por km**: 700-1.500 Kz/km (dependendo da categoria)
-- Valores alinhados com táxis privados em Luanda
+### Departamento de Engenharia e Tecnologias
 
-## ✨ Funcionalidades
+### Licenciatura em Engenharia Informática
 
-- 🎯 Simulador interativo de preços
-- 📊 Visualização detalhada dos fatores que afetam o preço
-- 🔄 Comparação de diferentes cenários
-- 📈 Gráficos e estatísticas em tempo real
-- 🌙 Suporte a modo claro/escuro
-- 💵 Moeda em Kwanza Angolana (AOA)
+### 2025/2026
 
-## 🚀 Deploy no Render (Gratuito + Sempre Ativo)
+-----
 
-✨ **Sistema de Keep-Alive Nativo** - A aplicação se mantém acordada sozinha, sem precisar de serviços externos!
+### 🔗 URL de Acesso
 
-Siga o guia completo em **[DEPLOY_RENDER.md](./DEPLOY_RENDER.md)** para fazer deploy gratuito no Render e manter a aplicação sempre ativa 24/7.
+Acesse o simulador interativo em produção aqui:
+**[https://simulador-taxi-ao.onrender.com](https://www.google.com/search?q=https://simulador-taxi-ao.onrender.com)**
 
-### Resumo Rápido:
+-----
 
-1. **Fazer Push para GitHub**
-2. **Conectar no Render** (deploy automático com render.yaml)
-3. **Configurar variável `RENDER_EXTERNAL_URL`** (keep-alive automático)
-4. **Pronto!** App rodando 24/7 gratuitamente, sem hibernação
+### 👥 Autores
 
-## 🛠️ Desenvolvimento Local
+| Nome Completo | Número de Matrícula | Curso e Instituição |
+| :--- | :--- | :--- |
+| **Geraldo Abreu Leão Chiquemba** | 20230043 | Engenharia Informática, ISPTEC |
+| **Kialenguluka Kialenguluka Tuavile** | 20231633 | Engenharia Informática, ISPTEC |
+| **Nvemba Silva** |  | Engenharia Informática, ISPTEC |
 
-### Pré-requisitos
-- Node.js 18+
-- npm ou yarn
+-----
 
-### Instalação
+## 📋 Descrição do Projecto
 
-```bash
-# Instalar dependências
-npm install
+Este projeto consiste numa **aplicação web educacional** desenvolvida para simular e visualizar a **modelagem de preços dinâmicos** em serviços de transporte por aplicativo, com foco específico no **mercado angolano**. O objetivo é desmistificar o cálculo de tarifas, permitindo aos utilizadores explorar como múltiplos fatores (distância, categoria, demanda, horário, clima) interagem para determinar o preço final em Kwanza (Kz).
 
-# Rodar em modo desenvolvimento
-npm run dev
+### Problema Modelado
+
+Como calcular, de forma transparente e adaptável, o preço de uma viagem que considera fatores estáticos (Bandeirada, Preço/km) e fatores dinâmicos (Trânsito, Demanda/Surge, Horário de Pico)?
+
+### Solução e Metodologia
+
+O sistema desenvolvido utiliza uma arquitetura **Full-Stack** moderna para:
+
+1.  **Backend (Node/Express):** Implementar a lógica de cálculo de preços baseada em um modelo paramétrico.
+2.  **Frontend (React/TypeScript):** Fornecer uma interface interativa para a entrada de fatores e visualização detalhada da composição do preço.
+3.  **Dados:** Os parâmetros base (Bandeirada e Preço por km) foram calibrados com base em pesquisas do mercado real de táxis privados em Luanda (2025).
+
+## 💰 Preços Base e Fatores de Modelação
+
+Os valores iniciais foram alinhados com o mercado angolano:
+
+| Parâmetro | Valor Base (Kz) | Fatores de Modelação |
+| :--- | :--- | :--- |
+| **Bandeirada** | 800 - 1.800 Kz | Categoria do Veículo (Económico, Premium) |
+| **Preço por km** | 700 - 1.500 Kz/km | Categoria do Veículo, Horário |
+| **Moeda** | Kwanza Angolana (AOA / Kz) | --- |
+
+### 📊 Fatores Dinâmicos no Cálculo
+
+O simulador integra os seguintes fatores para aplicar tarifas dinâmicas (multiplicadores):
+
+  * 📍 **Distância** da viagem
+  * 🚗 **Categoria do veículo** (Económico, Conforto, Premium, XL)
+  * ⏰ **Horário** (pico, noturno)
+  * 🌧️ **Condições climáticas** (chuva e intensidade)
+  * 🚦 **Trânsito** intenso
+  * 🎉 **Eventos especiais** (multiplicador fixo)
+  * 📈 **Zonas de demanda** (tarifa dinâmica / *surge pricing*)
+
+## 🛠️ Tecnologias
+
+| Área | Tecnologia | Função |
+| :--- | :--- | :--- |
+| **Frontend** | React 18, TypeScript | UI interativa e visualização de dados |
+| **Estilo/UI** | TailwindCSS, shadcn/ui | Design responsivo e componentes modernos |
+| **Estado/Dados** | TanStack Query, Wouter | Gestão de estado do servidor e roteamento |
+| **Visualização** | Recharts | Gráficos e estatísticas em tempo real |
+| **Backend** | Node.js, Express, TypeScript | Servidor de API para lógica de cálculo |
+| **Validação** | Zod | Validação de *schemas* e tipos de dados |
+
+## 📁 Estrutura do Projecto
+
+```
+/simulador-taxi-ao
+│
+├── client/              # Frontend React
+│   ├── src/
+│   │   ├── components/  # Componentes React (formulário, resultados, gráficos)
+│   │   ├── pages/       # Páginas principais
+│   │   └── lib/         # Utilitários e constantes de cálculo
+│
+├── server/              # Backend Express (Lógica de Preços)
+│   ├── index.ts         # Servidor principal (ponto de entrada)
+│   └── routes.ts        # Rotas da API de cálculo
+│
+├── shared/              # Código compartilhado entre cliente/servidor
+│   └── schema.ts        # Schemas Zod para validação
+│
+└── render.yaml          # Configuração de Deploy para Render
 ```
 
-Acesse: http://localhost:5000
+## 🚀 Instalação e Configuração
+
+### Pré-requisitos
+
+  * Node.js 18+
+  * npm ou yarn
+
+### 💻 Desenvolvimento Local
+
+1.  **Instalar Dependências:**
+    ```bash
+    # Instalar dependências (tanto para client como para server)
+    npm install
+    ```
+2.  **Rodar em Modo Desenvolvimento:**
+    ```bash
+    # Inicia o servidor backend e o servidor de desenvolvimento do React
+    npm run dev
+    ```
+    Acesse: `http://localhost:5000`
 
 ### Scripts Disponíveis
 
-```bash
-npm run dev      # Desenvolvimento
-npm run build    # Build para produção
-npm start        # Rodar produção
-npm run check    # Verificar tipos TypeScript
-```
+| Script | Descrição |
+| :--- | :--- |
+| `npm run dev` | Inicia o servidor de desenvolvimento e o frontend. |
+| `npm run build` | Cria o *build* para produção. |
+| `npm start` | Inicia o servidor Node.js em modo de produção. |
+| `npm run check` | Verifica tipos TypeScript (`tsc`). |
 
-## 🏗️ Estrutura do Projeto
+## 🌐 Deploy (Render)
 
-```
-├── client/              # Frontend React
-│   ├── src/
-│   │   ├── components/  # Componentes React
-│   │   ├── pages/       # Páginas
-│   │   └── lib/         # Utilitários
-│
-├── server/              # Backend Express
-│   ├── index.ts         # Servidor principal
-│   └── routes.ts        # Rotas da API
-│
-├── shared/              # Código compartilhado
-│   └── schema.ts        # Schemas Zod
-│
-└── render.yaml          # Configuração Render
-```
+Este projeto está configurado para **Deploy Contínuo e Gratuito** na plataforma **Render**, utilizando o `render.yaml` e um sistema de **Keep-Alive Nativo** para manter a aplicação sempre ativa (24/7).
 
-## 🔧 Tecnologias
+Siga o guia completo em **`DEPLOY_RENDER.md`** para o procedimento, que inclui:
 
-### Frontend
-- React 18
-- TypeScript
-- TailwindCSS
-- shadcn/ui
-- TanStack Query
-- Recharts
-- Wouter (roteamento)
+1.  Fazer `Push` para o GitHub.
+2.  Conectar no Render (deploy automático com `render.yaml`).
+3.  Configurar a variável `RENDER_EXTERNAL_URL` (para o sistema de *keep-alive*).
 
-### Backend
-- Node.js
-- Express
-- TypeScript
-- Zod (validação)
+## 🤝 Contribuições
 
-## 📊 Fatores que Afetam o Preço
-
-O simulador considera:
-
-- 📍 **Distância** da viagem
-- 🚗 **Categoria do veículo** (Econômico, Conforto, Premium, XL)
-- ⏰ **Horário** (pico, noturno)
-- 🌧️ **Condições climáticas** (chuva e intensidade)
-- 🚦 **Trânsito** intenso
-- 🎉 **Eventos especiais**
-- 📅 **Feriados**
-- 📈 **Zonas de demanda** (tarifa dinâmica)
+Contribuições são bem-vindas\! Sinta-se à vontade para abrir *issues* ou *pull requests* para melhorias no modelo de cálculo, calibração de preços ou novas funcionalidades.
 
 ## 📝 Licença
 
 MIT
 
-## 🤝 Contribuições
+-----
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
+**🎓 Nota Educacional:** Os preços são baseados em dados reais do mercado angolano mas representam uma **simulação** e podem variar na prática.
 
----
-
-**🎓 Projeto Educacional** - Os preços são baseados em dados reais do mercado angolano mas podem variar.
+-----
