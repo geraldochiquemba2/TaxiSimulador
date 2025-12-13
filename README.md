@@ -26,7 +26,7 @@ Acesse o simulador interativo em produção aqui:
 | :--- | :--- | :--- |
 | **Geraldo Abreu Leão Chiquemba** | 20230043 | Engenharia Informática, ISPTEC |
 | **Kialenguluka Kialenguluka Tuavile** | 20231633 | Engenharia Informática, ISPTEC |
-| **Nvemba Silva** |  | Engenharia Informática, ISPTEC |
+| **Nvemba Silva** | 20232319 | Engenharia Informática, ISPTEC |
 
 -----
 
